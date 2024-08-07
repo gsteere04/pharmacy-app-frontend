@@ -4,6 +4,9 @@ import './App.css'
 import NavBar from "./components/NavBar";
 import HomePage from './pages/HomePage'
 import Prescription from "./pages/Prescription";
+import Patients from "./pages/Patients";
+import Doctors from "./pages/Doctors";
+import Medication from "./pages/Medication";
 
 const App: React.FC = () => {
 
@@ -14,6 +17,11 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<HomePage />}/>
           <Route path="/prescription" element={<Prescription />}/>
+          <Route path="/patients" element={<Patients />}/>
+          <Route path="/doctors" element={<Doctors />}/>
+          <Route path="/medication" element={<Medication />}/>
+
+
         </Routes>
       </div>
     </Router>
