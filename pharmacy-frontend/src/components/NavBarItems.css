@@ -1,18 +1,19 @@
 
 .navbaritems {
    display: flex;
-   align-items: center; 
-   justify-content: space-between;
+   align-items: center;  
    width: 100%;
    margin-left: 9em;
    margin-right: 9em;
+   flex-direction: row;
+   justify-content: space-around
   }
   
   .nav-list {
     list-style: none;
     display: flex;
-    justify-content: space-around;
-    padding: 0;
+    gap: 0.5em;
+    flex-direction: row;
   }
   
   .nav-item a {
@@ -30,4 +31,14 @@
     display: flex;
     max-width: 200px;
     justify-content: flex-start;
+  }
+
+  .navbar-rxlogo {
+    display: flex;
+    max-width: 100px;
+    justify-content: flex-start;
+  }
+
+  .logos {
+    display: flex;
   }
