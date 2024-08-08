@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import './NavBarItems.css';
-import logo from '../assets/image.png';
-import logo2 from '../assets/rx-icon-25472.png';
+import logo from '/src/assets/image.png'
+import logo2 from '/src/assets/rx-icon-25472.png';
 const NavBarItems: React.FC = () => {
     return (
         <nav className="navbaritems">
