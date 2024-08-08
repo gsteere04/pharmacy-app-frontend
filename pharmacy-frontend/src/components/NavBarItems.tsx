@@ -4,7 +4,7 @@ import './NavBarItems.css';
 
 const NavBarItems: React.FC = () => {
     return (
-        <nav className="navbar">
+        <nav className="navbaritems">
             <ul className="nav-list">
                 <li className="nav-item"><Link to="/">Home</Link></li>
                 <li className="nav-item"><Link to="/prescription">Presciptions</Link></li>
