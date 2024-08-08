@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './App.css';
-import NavBar from "./components/NavBar";
-import HomePage from './pages/HomePage';
-import Prescription from "./pages/Prescription";
-import Patients from "./pages/Patients";
-import Doctors from "./pages/Doctors";
-import Medication from "./pages/Medication";
+import NavBar from "./components/NavBar/NavBar";
+import HomePage from './pages/Home Page/HomePage';
+import Prescription from "./pages/Prescription Page/Prescription";
+import Patients from "./pages/Patients Page/Patients";
+import Doctors from "./pages/Doctors Page/Doctors";
+import Medication from "./pages/Medication Page/Medication";
 
 const App: React.FC = () => {
 
