@@ -1,5 +1,14 @@
+/* NavBar.css */
 .navbar {
     display: flex;
-    background-color: #2E3F59;
+    align-items: center; /* Vertically aligns items (centered vertically if height is more than content) */
+    justify-content: flex-end; /* Aligns items to the left */
+    position: absolute; /* Positioning it absolutely relative to its parent */
 
+    top: 0;
+    left: 0;
+    width: 100%; /* Ensures the navbar stretches across the top */
+    background-color: #2E3F59; /* Example background color */
+    padding: 10px;
+    box-sizing: border-box; /* Ensures padding doesn’t add extra width */
 }

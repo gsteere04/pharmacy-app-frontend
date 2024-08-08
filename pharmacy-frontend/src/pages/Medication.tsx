@@ -1,4 +1,5 @@
 import React from "react";
+import "./Medication.css";
 
 const Medication: React.FC = () => {
     return (

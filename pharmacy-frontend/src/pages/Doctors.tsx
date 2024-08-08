@@ -1,4 +1,6 @@
 import React from "react";
+import "./Doctors.css";
+
 
 const Doctors: React.FC = () => {
     return (
