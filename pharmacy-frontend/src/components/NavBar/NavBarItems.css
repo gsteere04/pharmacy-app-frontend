@@ -6,7 +6,8 @@
    margin-left: 9em;
    margin-right: 9em;
    flex-direction: row;
-   justify-content: space-around
+   justify-content: space-around;
+   font-size:x-large;
   }
   
   .nav-list {
@@ -41,5 +42,5 @@
 
   .logos {
     display: flex;
-    margin-right: 23em
+    margin-right: 3em
   }
