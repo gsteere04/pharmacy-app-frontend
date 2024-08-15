@@ -34,3 +34,36 @@
     right: 46em;
     padding: 0.5em;
 }
+
+.prescription-details {
+    position: absolute;
+    text-align: left;
+    padding: 1em;
+    width: 350px;
+    top: 15em;
+    left: 9em;
+    outline: black solid;
+}
+
+form {
+    margin-bottom: 15px;
+}
+
+label {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    color: black;
+    outline:  1px solid black;
+
+
+}
