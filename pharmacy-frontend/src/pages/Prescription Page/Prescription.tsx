@@ -4,8 +4,9 @@ import "./Prescription.css";
 const Prescription: React.FC = () => {
     return (
         <div className="prescription">
-            <h1>Prescription Page</h1>
-            <p>This is the start of prescription page</p>
+            <div className="prescription-action">
+                <h2>New/Refill Prescription -- Sample/Grant (Rx Number: ---)</h2>
+            </div>
         </div>
     );
 };

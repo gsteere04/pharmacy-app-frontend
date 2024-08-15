@@ -1,18 +1,21 @@
 .patient-list-container {
-    width: 600px;
+    width: 1200px;
     margin-top: 10em;
-    padding: 30px;
-    border: 1px solid #ccc;
+    padding: 20px;
+    border: 3px solid black;
     border-radius: 8px;
     background-color: #f9f9f9;
     color: black;
+    font-weight: lighter;
 
   }
-  
+  .patient-list-container h1 {
+    font-weight: lighter;
+  }
   .patient-list {
     height: 400px; /* Adjust height as needed */
     overflow-y: scroll;
-    border: 1px solid #ddd;
+    border: 1px solid black;
     padding: 10px;
     background-color: #fff;
   }
@@ -20,7 +23,7 @@
   .patient-card {
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid black;
     border-radius: 4px;
     background-color: #f4f4f4;
   }

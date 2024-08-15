@@ -23,3 +23,14 @@
     color: #555; /* Slightly lighter text for paragraphs */
     line-height: 1.6; /* Improve readability */
 }
+
+.prescription-action {
+    background-color: #7FA9CE;
+    color: white;
+    border-radius: 0.5em;
+    outline: black solid;
+    position: absolute;
+    top: 8.3em;
+    right: 46em;
+    padding: 0.5em;
+}
