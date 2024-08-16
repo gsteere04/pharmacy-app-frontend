@@ -21,7 +21,7 @@ const NavBarItems: React.FC = () => {
           <Link to="/patient">Patients</Link>
         </li>
         <li className="nav-item">
-          <Link to="/medication">Medicine</Link>
+          <Link to="/rxitem">Rx Item</Link>
         </li>
         <li className="nav-item">
           <Link to="/login">Login</Link>

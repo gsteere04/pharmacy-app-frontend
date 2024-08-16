@@ -5,7 +5,7 @@ import NavBar from "./components/NavBar/NavBar";
 import HomePage from './pages/Home Page/HomePage';
 import Prescription from "./pages/Prescription Page/Prescription";
 import Doctors from "./pages/Doctors Page/Doctors";
-import Medication from "./pages/Medication Page/Medication";
+import Medication from "./pages/Rx Item Page/RxItem";
 import PatientList from "./pages/Patients Page/PatientList";
 
 const App: React.FC = () => {
@@ -19,7 +19,7 @@ const App: React.FC = () => {
           <Route path="/prescription" element={<Prescription />}/>
           <Route path="/patient" element={<PatientList />}/>
           <Route path="/doctors" element={<Doctors />}/>
-          <Route path="/medication" element={<Medication />}/>
+          <Route path="/rxitem" element={<Medication />}/>
         </Routes>
       </div>
     </Router>

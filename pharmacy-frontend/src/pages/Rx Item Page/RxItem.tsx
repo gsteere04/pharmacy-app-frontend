@@ -1,11 +1,11 @@
 import React from "react";
-import "./Medication.css";
+import "./RxItem.css";
 
 const Medication: React.FC = () => {
     return (
         <div className="medication">
-            <h1>Medication</h1>
-            <p>Start of Medication Page</p>
+            <h1>Rx Items</h1>
+            <p>Start of Rx Items Page</p>
         </div>
     );
 };
