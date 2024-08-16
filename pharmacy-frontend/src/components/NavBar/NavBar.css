@@ -5,8 +5,8 @@
     justify-content: flex-end; /* Aligns items to the left */
     position: absolute; /* Positioning it absolutely relative to its parent */
 
-    top: 0;
-    left: 0;
+    top: 0%;
+    left: 0%;
     width: 100%; /* Ensures the navbar stretches across the top */
     background-color: #2E3F59; /* Example background color */
     padding: 10px;

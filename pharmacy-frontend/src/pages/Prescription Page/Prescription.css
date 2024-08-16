@@ -1,15 +1,11 @@
 /* HomePage.css */
 .prescription {
     display: flex;
-    flex-direction: column;
-    padding: 200px 200px 200px 200px; /* Adjust padding to account for the fixed navbar */
-    margin-top: 50px; /* Extra space to avoid overlap with the navbar */
+    padding: 100px; /* Adjust padding to account for the fixed navbar */
     color: #333; /* Dark text color */
-    height: 100vh; /* Ensure the page takes up the full height of the viewport */
-    width: 1200px;
-    box-sizing: border-box; /* Includes padding within the element’s width/height */
-   
-    
+    height: 109vh;
+    flex: 0 1 100px;
+    flex-direction: column;
 }
 
 .prescription h1 {
@@ -25,24 +21,27 @@
 }
 
 .prescription-action {
+    display: flex;
     background-color: #7FA9CE;
     color: white;
     border-radius: 0.5em;
     outline: black solid;
-    position: absolute;
-    top: 8.3em;
-    right: 46em;
-    padding: 0.5em;
+    align-items: center;
+    flex-grow: none;
+    align-self:flex-start;
+    justify-content: center;
+    padding: 0.2em
 }
 
 .prescription-details {
-    position: absolute;
+    display: flex;
     text-align: left;
+    flex-direction: column;
     padding: 1em;
-    width: 350px;
-    top: 15em;
-    left: 9em;
+    width: 300px;
     outline: black solid;
+    margin-top: 60px;
+    margin-bottom: 1em;
 }
 
 form {
@@ -63,7 +62,19 @@ input[type="text"] {
     border-radius: 4px;
     background-color: white;
     color: black;
-    outline:  1px solid black;
+    outline: solid black;
+}
 
+.patient-card {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    outline: 1px solid black;
+}
 
+.cards {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 10px
 }
