@@ -1,4 +1,6 @@
 .patient-list-container {
+    display: flex;
+    flex-direction: column;
     width: 1200px;
     margin-top: 10em;
     padding: 20px;
@@ -13,6 +15,8 @@
     font-weight: lighter;
   }
   .patient-list {
+    display: flex;
+    flex-direction: column;
     height: 400px; /* Adjust height as needed */
     overflow-y: scroll;
     border: 1px solid black;
@@ -26,5 +30,9 @@
     border: 1px solid black;
     border-radius: 4px;
     background-color: #f4f4f4;
+  }
+
+  .patient-search {
+    display: flex;
   }
   

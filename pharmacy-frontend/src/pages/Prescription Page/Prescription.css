@@ -14,7 +14,6 @@ body {
     color: #333;
     padding: 20px;
     padding-top: calc(45px + 56px); /* Adjust padding-top to account for the navbar height (56px) */
-    height: calc(100vh - 56px); /* Adjust height to fit within the viewport minus the navbar height */
     margin: 0;
 }
 
@@ -139,12 +138,14 @@ input[type="text"] {
 
 .directions label {
     font-weight: normal;
+    align-items: center;
 }
 
 .directions input[type="text"] {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    height: 100px;
 }
 /* HomePage.css */
 
@@ -182,4 +183,8 @@ input[type="text"] {
 
 .upload-button:hover {
     background-color: #0056b3; /* Darker blue on hover */
+}
+
+.image-preview img {
+    max-width: 300px;
 }
