@@ -24,6 +24,7 @@ const Prescription: React.FC = () => {
       fileInputRef.current.click();
     }
   };
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -33,6 +34,10 @@ const Prescription: React.FC = () => {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleRemoveImage = () => {
+    setImageSrc(null);
   };
 
   const handleSubmit = () => {
@@ -64,7 +69,7 @@ const Prescription: React.FC = () => {
     <div className="prescription">
       <div className="action-rx-number">
         <div className="rx-number">
-          <form>
+          <form className="input-form">
             <label>
               Rx Number:
               <input
@@ -84,7 +89,7 @@ const Prescription: React.FC = () => {
 
       <div className="cards">
         <div className="prescription-details">
-          <form>
+          <form className="input-form">
             <label>
               Patient:
               <input
@@ -120,7 +125,7 @@ const Prescription: React.FC = () => {
 
         <div className="patient-card">
           <h3>Patient Information</h3>
-          <form>
+          <form className="input-forms">
             <label>
               Address:
               <input
@@ -128,6 +133,7 @@ const Prescription: React.FC = () => {
                 name="address"
                 placeholder="Ex. 296 The Moon"
                 onChange={(e) => setAddress(e.target.value)}
+                readOnly
               />
             </label>
             <label>
@@ -137,6 +143,7 @@ const Prescription: React.FC = () => {
                 name="phone"
                 placeholder="Ex. 435-1000-0000"
                 onChange={(e) => setPhone(e.target.value)}
+                readOnly
               />
             </label>
             <label>
@@ -146,6 +153,7 @@ const Prescription: React.FC = () => {
                 name="dob"
                 placeholder="Ex. 8/15/1864"
                 onChange={(e) => setDob(e.target.value)}
+                readOnly
               />
             </label>
             <label>
@@ -155,10 +163,50 @@ const Prescription: React.FC = () => {
                 name="allergies"
                 placeholder="Ex. Peanut"
                 onChange={(e) => setAllergies(e.target.value)}
+                readOnly
               />
             </label>
           </form>
         </div>
+
+
+      <div className="image-upload">
+        <form>
+          <label>
+            Prescription Image:
+            <input
+              type="file"
+              name="prescription-image"
+              accept="image/*"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleImageChange}
+            />
+            <button
+              type="button"
+              onClick={handleUploadClick}
+              className="upload-button"
+            >
+              Upload Image
+            </button>
+            <button
+            type="button"
+            onClick={handleRemoveImage}
+            className="remove-button"
+            >
+              Remove Image
+            </button>
+          </label>
+        </form>
+
+        {imageSrc && (
+          <div className="image-preview">
+            <img src={imageSrc} alt="Prescription" />
+          </div>
+        )}
+      </div>
+
+        
       </div>
 
       <div className="rx-values">
@@ -228,35 +276,6 @@ const Prescription: React.FC = () => {
           </label>
         </form>
       </div>
-      <div className="image-upload">
-        <form>
-          <label>
-            Prescription Image:
-            <input
-              type="file"
-              name="prescription-image"
-              accept="image/*"
-              ref={fileInputRef}
-              style={{ display: "none" }}
-              onChange={handleImageChange}
-            />
-            <button
-              type="button"
-              onClick={handleUploadClick}
-              className="upload-button"
-            >
-              Upload Image
-            </button>
-          </label>
-        </form>
-
-        {imageSrc && (
-          <div className="image-preview">
-            <img src={imageSrc} alt="Prescription" />
-          </div>
-        )}
-      </div>
-
       <div className="save-button">
         <button type="button" onClick={handleSubmit}>
           Save Prescription
