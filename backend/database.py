@@ -1,7 +1,7 @@
 from decouple import config
 from sqlmodel import Session, create_engine
 
-DATABASE_URL: str = config("DATABASE_URL")
+DATABASE_URL: str = config("postgresql://postgres:postgres@localhost:5432/pharma-db")
 engine = create_engine(DATABASE_URL)
 
 
