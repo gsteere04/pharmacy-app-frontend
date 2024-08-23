@@ -1,3 +1,4 @@
+
 import './PatientList.css';
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -14,8 +15,9 @@ const PatientList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [patientsFound, setPatientsFound] = useState(true);
 
+  // Example patient list
   const patients: Patient[] = Array.from({ length: 20 }, (_, index) => ({
-    name: `John Doe ${index + 1}`,
+    name: 'John Doe',
     rxNumber: index + 1
   }));
 
@@ -23,6 +25,7 @@ const PatientList: React.FC = () => {
     const term = e.target.value;
     setSearchTerm(term);
 
+    // Check if any patients match the search term
     const found = patients.some(patient =>
       patient.name.toLowerCase().includes(term.toLowerCase())
     );
@@ -66,7 +69,56 @@ const PatientList: React.FC = () => {
         </Modal.Header>
         <Modal.Body>
           <form>
-            {/* Add your form fields here */}
+            <label>
+              Patient Name:
+              <input
+                type='text'
+                name='name'
+                placeholder='Ex. John Pork'
+                required
+              />
+            </label>
+            <label>
+              Address:
+              <input
+                type='text'
+                name='address'
+                placeholder='Ex. The Moon'
+                required
+              />
+            </label>
+            <label>
+              Phone:
+              <input
+                type='tel'
+                name='phone'
+                placeholder='Ex. 208-487-0000'
+                pattern='\d{3}-\d{3}-\d{4}'
+                title="Phone number format: 123-456-7890"
+                required
+                onInput={(e) => {
+                  const input = e.target as HTMLInputElement;
+                  input.value = input.value.replace(/[^0-9-]/g, '');
+                }}
+              />
+            </label>
+            <label>
+              DOB:
+              <input
+                type='date'
+                name='dob'
+                required
+              />
+            </label>
+            <label>
+              Allergies:
+              <input
+                type='text'
+                name='allergies'
+                placeholder='Ex. Peanut'
+                required
+              />
+            </label>
           </form>
         </Modal.Body>
         <Modal.Footer>
@@ -83,12 +135,12 @@ const PatientList: React.FC = () => {
       <div className="patient-list">
         {filteredPatients.length > 0 ? (
           filteredPatients.map((patient, index) => (
-            <div key={index} className="patient-card">
-              <Link to={`/patients/${patient.rxNumber}`}>
+            <Link to={`/patients/${patient.rxNumber}`}>
+              <div key={index} className="patient-card">
                 <p>Name: {patient.name}</p>
-              </Link>
-              <p>ID: {patient.rxNumber}</p>
-            </div>
+                <p>ID: {patient.rxNumber}</p>
+              </div>
+            </Link>
           ))
         ) : (
           <p>No patients found</p>
