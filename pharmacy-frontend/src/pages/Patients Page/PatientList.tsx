@@ -1,5 +1,7 @@
+
 import './PatientList.css';
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
@@ -43,7 +45,7 @@ const PatientList: React.FC = () => {
         <div className="patient-search-bar">
           <form>
             <label>Search:
-              <input 
+              <input
                 type="text"
                 name="search"
                 placeholder="Ex. John Doe"
@@ -53,12 +55,12 @@ const PatientList: React.FC = () => {
             </label>
           </form>
         </div>
-        <Button 
+        <Button
           variant="primary"
           onClick={handleShow}
           className="add-patient-button">
           Add Patient
-        </Button> 
+        </Button>
       </div>
 
       <Modal show={show} onHide={handleClose}>
@@ -69,7 +71,7 @@ const PatientList: React.FC = () => {
           <form>
             <label>
               Patient Name:
-              <input 
+              <input
                 type='text'
                 name='name'
                 placeholder='Ex. John Pork'
@@ -91,12 +93,12 @@ const PatientList: React.FC = () => {
                 type='tel'
                 name='phone'
                 placeholder='Ex. 208-487-0000'
-                pattern='\d{3}-\d{3}-\d{4}' 
+                pattern='\d{3}-\d{3}-\d{4}'
                 title="Phone number format: 123-456-7890"
                 required
                 onInput={(e) => {
                   const input = e.target as HTMLInputElement;
-                  input.value = input.value.replace(/[^0-9-]/g, ''); 
+                  input.value = input.value.replace(/[^0-9-]/g, '');
                 }}
               />
             </label>
@@ -116,7 +118,7 @@ const PatientList: React.FC = () => {
                 placeholder='Ex. Peanut'
                 required
               />
-            </label> 
+            </label>
           </form>
         </Modal.Body>
         <Modal.Footer>
@@ -127,16 +129,18 @@ const PatientList: React.FC = () => {
             Save Changes
           </Button>
         </Modal.Footer>
-      </Modal> 
+      </Modal>
 
       <h1>Current Patients</h1>
       <div className="patient-list">
         {filteredPatients.length > 0 ? (
           filteredPatients.map((patient, index) => (
-            <div key={index} className="patient-card">
-              <p>Name: {patient.name}</p>
-              <p>ID: {patient.rxNumber}</p>
-            </div>
+            <Link to={`/patients/${patient.rxNumber}`}>
+              <div key={index} className="patient-card">
+                <p>Name: {patient.name}</p>
+                <p>ID: {patient.rxNumber}</p>
+              </div>
+            </Link>
           ))
         ) : (
           <p>No patients found</p>
