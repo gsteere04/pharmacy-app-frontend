@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import fetchPatients from '../../services/patientService'; // Import the fetchPatients function
 
-type Patient = {
+type PatientBasicInfo = {
   id: number;
   first_name: string;
   last_name: string;
@@ -14,7 +14,7 @@ type Patient = {
 const PatientList: React.FC = () => {
   const [show, setShow] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [patients, setPatients] = useState<Patient[]>([]);
+  const [patients, setPatients] = useState<PatientBasicInfo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,7 +30,7 @@ const PatientList: React.FC = () => {
   useEffect(() => {
     const loadPatients = async () => {
       try {
-        const data = await fetchPatients();
+        const data: PatientBasicInfo[] = await fetchPatients();
         setPatients(data);
       } catch (error) {
         setError('Failed to load patients');

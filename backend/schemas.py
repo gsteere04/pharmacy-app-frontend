@@ -1,5 +1,5 @@
 from datetime import date
-
+from typing import Optional
 from pydantic import BaseModel
 
 from models import PrescriberType, PrescriptionStatus, State
@@ -14,6 +14,8 @@ class PatientBasicInfo(BaseModel):
 
 class PatientCreateResponse(BaseModel):
     patient_id: int
+
+
 
 
 class PatientUpdateRequest(BaseModel):
