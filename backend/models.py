@@ -1,6 +1,5 @@
 from sqlmodel import SQLModel, Field, Relationship
 from datetime import date
-from typing import Optional
 from enum import Enum
 
 # TODO: Maybe add an enum for drug class.
@@ -110,7 +109,7 @@ class PrescriptionStatus(str, Enum):
 
 
 class Patient(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     first_name: str
     last_name: str
     date_of_birth: date
@@ -118,15 +117,13 @@ class Patient(SQLModel, table=True):
     city: str
     state: State
     zipcode: str
-    primary_care_prescriber_id: int = Field(foreign_key="prescriber.id")
-    primary_care_prescriber: "Prescriber" = Relationship()
     allergies: str = ""
     prescriptions: list["Prescription"] = Relationship(back_populates="patient")
-    member_id_number: str | None = None
+    insurance_name: str | None = None
+    insurance_member_id: str | None = None
     insurance_group_number: str | None = None
     insurance_rx_bin: str | None = None
     insurance_rx_pcn: str | None = None
-    insurance_person_code: str | None = None
 
 
 class Prescriber(SQLModel, table=True):
