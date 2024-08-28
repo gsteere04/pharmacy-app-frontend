@@ -1,3 +1,5 @@
+
+
 type PatientBasicInfo = {
     id: number;
     first_name: string;
@@ -12,7 +14,6 @@ async function fetchPatients(): Promise<PatientBasicInfo[]> {
             headers: {
                 'Content-Type': 'application/json',
             },
-            credentials: 'include'
         });
 
         if (!response.ok) {
@@ -29,4 +30,7 @@ async function fetchPatients(): Promise<PatientBasicInfo[]> {
         };
         
     }
+
+
+
 export default fetchPatients;

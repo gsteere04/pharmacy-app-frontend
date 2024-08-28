@@ -118,10 +118,9 @@ class RxItemCreateRequest(BaseModel):
     name: str
     strength: str
     ndc: str
-    expiration: date | None = None
+    expiration: date
     lot_number: str
     dea_schedule: str | None = None
-    drug_class: str | None = None
 
 
 class RxItemCreateResponse(BaseModel):
@@ -135,4 +134,3 @@ class RxItemUpdateRequest(BaseModel):
     expiration: date | None = None
     lot_number: str | None = None
     dea_schedule: str | None = None
-    drug_class: str | None = None
