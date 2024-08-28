@@ -20,11 +20,19 @@ const PatientList: React.FC = () => {
 
   // New state for the form
   const [newPatient, setNewPatient] = useState({
-    name: '',
-    address: '',
-    phone: '',
-    dob: '',
-    allergies: ''
+    first_name: "",
+    last_name: "",
+    date_of_birth: "",
+    street: "",
+    city: "",
+    state: "",
+    zipcode: "",
+    allergies: "",
+    insurance_name: "",
+    insurance_member_id: "",
+    insurance_group_number: "",
+    insurance_rx_bin: "",
+    insurance_rx_pcn: ""
   });
 
   useEffect(() => {
@@ -66,10 +74,20 @@ const PatientList: React.FC = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          first_name: newPatient.name.split(' ')[0],
-          last_name: newPatient.name.split(' ')[1] || '',
-          date_of_birth: newPatient.dob,
-          allergies: newPatient.allergies
+          first_name: newPatient.first_name.split(' ')[0],
+          last_name: newPatient.last_name.split(' ')[1] || '',
+          date_of_birth: newPatient.date_of_birth,
+          allergies: newPatient.allergies,
+          city: newPatient.city,
+          state: newPatient.state,
+          zipcode: newPatient.zipcode,
+          insurance_name: newPatient.insurance_name,
+          insurance_member_id: newPatient.insurance_member_id,
+          insurance_group_number: newPatient.insurance_group_number,
+          insurance_rx_bin: newPatient.insurance_rx_bin,
+          insurance_rx_pcn: newPatient.insurance_rx_pcn 
+
+
         }),
       });
 
@@ -124,51 +142,47 @@ const PatientList: React.FC = () => {
         <Modal.Body>
           <form>
             <label>
-              Patient Name:
+              Patient First Name:
               <input 
                 type='text'
-                name='name'
+                name='first_name'
                 placeholder='Ex. John Doe'
                 required
-                value={newPatient.name}
+                value={newPatient.first_name}
                 onChange={handleInputChange}
               />
             </label>
+            <label>
+              Patient Last Name:
+              <input 
+                type='text'
+                name='last_name'
+                placeholder='Ex. John Doe'
+                required
+                value={newPatient.last_name}
+                onChange={handleInputChange}
+              />
+            </label>
+            <div className='address'>
             <label>
               Address:
               <input
                 type='text'
-                name='address'
-                placeholder='Ex. The Moon'
+                name='state'
+                placeholder=''
                 required
-                value={newPatient.address}
+                value={newPatient.state}
                 onChange={handleInputChange}
               />
-            </label>
+            </label> 
+            </div>
             <label>
-              Phone:
+              Date of Birth:
               <input
-                type='tel'
-                name='phone'
-                placeholder='Ex. 208-487-0000'
-                pattern='\d{3}-\d{3}-\d{4}' 
-                title="Phone number format: 123-456-7890"
+                title="Date of birth format: yyyy/mm/dd"
+                name='date_of_birth'
                 required
-                value={newPatient.phone}
-                onChange={handleInputChange}
-                onInput={(e) => {
-                  const input = e.target as HTMLInputElement;
-                  input.value = input.value.replace(/[^0-9-]/g, ''); 
-                }}
-              />
-            </label>
-            <label>
-              DOB:
-              <input
-                type='date'
-                name='dob'
-                required
-                value={newPatient.dob}
+                value={newPatient.date_of_birth}
                 onChange={handleInputChange}
               />
             </label>

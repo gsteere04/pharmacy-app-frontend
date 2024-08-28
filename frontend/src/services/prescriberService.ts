@@ -1,6 +1,7 @@
 // NOTE Doctor = Prescriber.  const and function naming is inconsistent.
 
 type DoctorBasicInfo = {
+    id: number;
     first_name: string;
     last_name: string;
     prescriber_type: string;
