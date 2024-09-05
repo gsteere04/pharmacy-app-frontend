@@ -9,6 +9,7 @@ import Prescription from "./pages/Prescription Page/Prescription";
 import Doctors from "./pages/Doctors Page/Doctors";
 import Medication from "./pages/Home Page/Rx Item Page/RxItem";
 import PatientList from "./pages/Patients Page/PatientList";
+import Patients from "./pages/Patients Page/PatientDetail";
 
 const App: React.FC = () => {
 
@@ -22,6 +23,7 @@ const App: React.FC = () => {
           <Route path="/patient" element={<PatientList />}/>
           <Route path="/doctors" element={<Doctors />}/>
           <Route path="/rxitem" element={<Medication />}/>
+          <Route path="/patient/:id" element={<Patients />} />
         </Routes>
       </div>
     </Router>
