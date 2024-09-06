@@ -3,6 +3,7 @@ import { states } from "../../../data/states";
 import { PatientDetailInfo } from "../../types/patientTypes";
 
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import ReactSelect from "react-select";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -443,6 +444,7 @@ const PatientList: React.FC = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+      <h1>Current Patients</h1>
       <div className="patients-list">
         {filteredPatients.length > 0 ? (
           filteredPatients.map((patient) => (
@@ -450,6 +452,9 @@ const PatientList: React.FC = () => {
               <span className="patient-item-span">
                 {patient.first_name} {patient.last_name} 
               </span>
+              <Link to={`/patients/${patient.id}`} className="patient-profile-link">
+              View Profile 
+              </Link>
               <Button className="delete-button"
                 variant="danger"
                 onClick={() => {

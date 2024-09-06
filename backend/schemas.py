@@ -27,7 +27,7 @@ class PatientCreateRequest(BaseModel):
     insurance_group_number: str | None = None
     insurance_rx_bin: str | None = None
     insurance_rx_pcn: str | None = None
-    insurance_person_code: str | None = None
+    insurance_person_code: str
 
 
 class PatientCreateResponse(BaseModel):
@@ -46,10 +46,44 @@ class PatientUpdateRequest(BaseModel):
     allergies: str | None = None
     insurance_name: str | None = None
     insurance_member_id: str | None = None
-    group_number: str | None = None
+    insurance_group_number: str | None = None
     insurance_rx_bin: str | None = None
     insurance_rx_pcn: str | None = None
     insurance_person_code: str | None = None
+
+
+class PatientRxHistoryItem(BaseModel):
+    rx_number: int
+    prescriber_id: int
+    prescriber_first_name: str
+    prescriber_last_name: str
+    prescriber_type: PrescriberType
+    prescribed_date: date
+    rx_item_name: str
+    rx_item_strength: str
+    quantity: int
+    refills: int
+    directions: str
+
+
+class PatientDetailedInfo(BaseModel):
+    id: int
+    first_name: str
+    last_name: str
+    date_of_birth: date
+    phone_number: str
+    street: str
+    city: str
+    state: State
+    zipcode: str
+    allergies: str
+    prescriptions: list[PatientRxHistoryItem]
+    insurance_name: str | None = None
+    insurance_member_id: str | None = None
+    insurance_group_number: str | None = None
+    insurance_rx_bin: str | None = None
+    insurance_rx_pcn: str | None = None
+    insurance_person_code: str
 
 
 class PrescriberCreateRequest(BaseModel):

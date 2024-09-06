@@ -5,7 +5,7 @@ body {
   background-color: #f0f2f5;
 }
 
-.patient-item {
+.prescriber-item {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,11 +17,11 @@ body {
   padding: 1em;
 }
 
-.patient-item-span {
+.prescriber-item-span {
   width: 250px;
 }
 
-.patient-list-container {
+.prescriber-list-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,7 +35,7 @@ body {
   color: #333;
 }
 
-.patient-list-container h1 {
+.prescriber-list-container h1 {
   font-weight: 500;
   margin-bottom: 20px;
   color: #007bff;
@@ -43,7 +43,7 @@ body {
   text-align: center;
 }
 
-.patient-header {
+.prescriber-header {
   display: flex;
   align-items: center;
   width: 100%;
@@ -53,18 +53,18 @@ body {
   gap: 20px;
 }
 
-.patient-search-bar {
+.prescriber-search-bar {
   margin-right: 10px;
 }
 
-.patient-search-bar label {
+.prescriber-search-bar label {
   font-size: 16px;
   color: #333;
   margin-bottom: 4px;
-  gap: 1em;
+  gap: 1em
 }
 
-.patient-search-bar input[type="text"] {
+.prescriber-search-bar input[type="text"] {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
@@ -74,11 +74,11 @@ body {
   transition: border-color 0.3s;
 }
 
-.patient-search-bar input[type="text"]:focus {
+.prescriber-search-bar input[type="text"]:focus {
   border-color: #007bff;
 }
 
-.add-patient-button {
+.add-prescriber-button {
   padding: 10px 20px;
   background-color: #007bff;
   color: white;
@@ -90,12 +90,12 @@ body {
   flex-shrink: 0;
 }
 
-.add-patient-button:hover {
+.add-prescriber-button:hover {
   background-color: #0056b3;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-.patient-list {
+.prescriber-list {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -106,7 +106,7 @@ body {
   border-radius: 8px;
 }
 
-.patient-card {
+.prescriber-card {
   padding: 15px;
   width: 100%;
   margin-bottom: 10px;
@@ -118,11 +118,11 @@ body {
   transition: box-shadow 0.3s;
 }
 
-.patient-card:hover {
+.prescriber-card:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.patient-card p {
+.prescriber-card p {
   font-size: 1rem;
   color: #555;
   margin: 0;

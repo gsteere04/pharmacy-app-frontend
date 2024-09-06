@@ -6,7 +6,7 @@ import './App.css';
 import NavBar from "./components/NavBar/NavBar";
 import HomePage from './pages/Home Page/HomePage';
 import Prescription from "./pages/Prescription Page/Prescription";
-import Doctors from "./pages/Doctors Page/Doctors";
+import Doctors from "./pages/Prescriber Page/PrescriberList";
 import Medication from "./pages/Home Page/Rx Item Page/RxItem";
 import PatientList from "./pages/Patients Page/PatientList";
 import Patients from "./pages/Patients Page/PatientDetail";

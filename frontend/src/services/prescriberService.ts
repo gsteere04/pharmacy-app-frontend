@@ -1,20 +1,7 @@
-// NOTE Doctor = Prescriber.  const and function naming is inconsistent.
-
-type DoctorBasicInfo = {
-    id: number;
-    first_name: string;
-    last_name: string;
-    prescriber_type: string;
-    street: string;
-    city: string;
-    state: string;
-    zipcode: string;
-    contact_number: string;
-    dea: string
-    npi: string
-};
-
-async function fetchDoctors(): Promise<DoctorBasicInfo[]> {
+import { PrescriberDetailInfo } from "../types/prescriberTypes";
+import { PrescriberBasicInfo } from "../pages/Prescriber Page/PrescriberList";
+// Fetching Prescribers (default export)
+export async function fetchPrescribers(): Promise<PrescriberBasicInfo[]> {
     try {
         const response = await fetch('http://localhost:8000/prescribers', {
             method: 'GET',
@@ -27,17 +14,42 @@ async function fetchDoctors(): Promise<DoctorBasicInfo[]> {
             throw new Error('Network response was not ok');
         }
 
-        const doctors: DoctorBasicInfo[] = await response.json();
-        console.log(doctors);
-        return doctors;
-    }   catch(error) {
+        const prescribers: PrescriberBasicInfo[] = await response.json();
+        return prescribers;
+    } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
         return [];
+    }
+}
 
-        };
-        
+// Fetch a single prescriber by ID
+export async function fetchPrescriberById(id: number): Promise<PrescriberDetailInfo> {
+    const response = await fetch(`http://localhost:8000/prescriber/${id}`);
+  
+    if (!response.ok) {
+        throw new Error('Failed to fetch prescriber');
     }
 
+    const data: PrescriberDetailInfo = await response.json();
+    return data;
+}
 
+// Deleting a prescriber by ID (fixed typo)
+export async function deletePrescriber(prescriberId: number): Promise<void> {
+    try {
+        const response = await fetch(`http://localhost:8000/prescriber/${prescriberId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (!response.ok) {
+            throw new Error('Failed to delete prescriber');
+        }
+        console.log(`Prescriber with ID ${prescriberId} deleted successfully.`);
+    } catch (error) {
+        console.error("There was a problem deleting the prescriber:", error);
+    }
+}
 
-export default fetchDoctors;
+export default fetchPrescribers;
