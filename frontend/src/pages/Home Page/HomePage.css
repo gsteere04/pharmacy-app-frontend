@@ -1,25 +1,132 @@
 /* HomePage.css */
+
+/* General Page Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
 .homepage {
     display: flex;
     flex-direction: column;
-    padding: 200px 200px 200px 200px; /* Adjust padding to account for the fixed navbar */
-    margin-top: 50px; /* Extra space to avoid overlap with the navbar */
-    color: #333; /* Dark text color */
-    height: 100vh; /* Ensure the page takes up the full height of the viewport */
-    width: 1200px;
-    box-sizing: border-box; /* Includes padding within the element’s width/height */
-   
-    
+    min-height: 100vh;
+    background-color: #f4f4f4;
 }
 
-.homepage h1 {
-    font-size: 2.5rem;
+/* Header Styles */
+.header {
+    background-color: #007bff; /* Pharmacy theme color */
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    margin: 0;
+}
+
+.header nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.header nav ul li {
+    margin-left: 20px;
+}
+
+.header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Main Content Styles */
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Section Styles */
+.section {
     margin-bottom: 20px;
-    color: #000; /* Make the header text stand out */
 }
 
-.homepage p {
-    font-size: 1.2rem;
-    color: #555; /* Slightly lighter text for paragraphs */
-    line-height: 1.6; /* Improve readability */
+.section h2 {
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Card Styles */
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+}
+
+.card h3 {
+    margin-top: 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Quick Actions Styles */
+.quick-actions {
+    display: flex;
+    gap: 20px;
+}
+
+.quick-actions .btn {
+    flex: 1;
+}
+
+/* Notifications Styles */
+.notifications ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notifications li {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Account Styles */
+.account .btn {
+    margin-top: 10px;
 }

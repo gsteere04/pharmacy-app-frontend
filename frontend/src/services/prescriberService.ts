@@ -24,7 +24,7 @@ export async function fetchPrescribers(): Promise<PrescriberBasicInfo[]> {
 
 // Fetch a single prescriber by ID
 export async function fetchPrescriberById(id: number): Promise<PrescriberDetailInfo> {
-    const response = await fetch(`http://localhost:8000/prescriber/${id}`);
+    const response = await fetch(`http://localhost:8000/prescribers/${id}`);
   
     if (!response.ok) {
         throw new Error('Failed to fetch prescriber');

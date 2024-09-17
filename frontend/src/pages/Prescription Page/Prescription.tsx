@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./Prescription.css";
 
 const Prescription: React.FC = () => {
@@ -6,18 +6,58 @@ const Prescription: React.FC = () => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
 
   const [rxNumber, setRxNumber] = useState("");
-  const [patient, setPatient] = useState("");
-  const [prescriber, setPrescriber] = useState("");
+  const [patientId, setPatientId] = useState<number | "">("");
+  const [prescriberId, setPrescriberId] = useState<number | "">("");
   const [item, setItem] = useState("");
-  const [address, setAddress] = useState("");
-  const [phone, setPhone] = useState("");
-  const [dob, setDob] = useState("");
-  const [allergies, setAllergies] = useState("");
+  const [prescribedDate, setPrescribedDate] = useState<string>("");
+  const [directions, setDirections] = useState("");
   const [quantityWritten, setQuantityWritten] = useState("");
   const [quantityDispensed, setQuantityDispensed] = useState("");
-  const [refillsDespensed, setRefillsDespensed] = useState("");
+  const [refills, setRefills] = useState("");
   const [quantityRemaining, setQuantityRemaining] = useState("");
-  const [directions, setDirections] = useState("");
+  const [techInitials, setTechInitials] = useState("");
+
+  const [patientData, setPatientData] = useState<any | null>(null);
+  const [prescriberData, setPrescriberData] = useState<any | null>(null);
+
+  useEffect(() => {
+    if (patientId !== "") {
+      fetch(`http://localhost:8000/patients/${patientId}`)
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            // If patient is not found, clear the patient data
+            setPatientData(null);
+            return null;
+          }
+        })
+        .then((data) => {
+          if (data) {
+            setPatientData(data);
+          } else {
+            // If no data is returned, clear the fields
+            setPatientData(null);
+          }
+        })
+        .catch((error) => console.error("Error fetching patient data:", error));
+    } else {
+      setPatientData(null); // Clear patient data if no ID is provided
+    }
+  }, [patientId]);
+
+  useEffect(() => {
+    if (prescriberId !== "") {
+      fetch(`http://localhost:8000/prescribers/${prescriberId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setPrescriberData(data);
+        })
+        .catch((error) => console.error("Error fetching prescriber data:", error));
+    } else {
+      setPrescriberData(null); // Clear prescriber data if no ID is provided
+    }
+  }, [prescriberId]);
 
   const handleUploadClick = () => {
     if (fileInputRef.current) {
@@ -41,28 +81,39 @@ const Prescription: React.FC = () => {
   };
 
   const handleSubmit = () => {
+    const quantityWrittenNumber = Number(quantityWritten);
+    const quantityDispensedNumber = Number(quantityDispensed);
+    const refillsNumber = Number(refills);
+    const quantityRemainingNumber = Number(quantityRemaining);
+
     const newPrescription = {
-      rxNumber,
-      patient,
-      prescriber,
-      item,
-      address,
-      phone,
-      dob,
-      allergies,
-      quantityWritten,
-      quantityDispensed,
-      quantityRemaining,
-      refillsDespensed,
+      rx_number: Number(rxNumber),
+      patient_id: Number(patientId),
+      prescriber_id: Number(prescriberId),
+      prescribed_date: prescribedDate,
+      rx_item_id: Number(item),
       directions,
-      imageSrc,
+      quantity: quantityWrittenNumber,
+      quantity_dispensed: quantityDispensedNumber,
+      refills: refillsNumber,
+      quantity_remaining: quantityRemainingNumber,
+      status: "pending",
+      tech_initials: techInitials,
+      image_src: imageSrc,
     };
 
-    const savedPrescriptions = JSON.parse(
-      localStorage.getItem("prescription") || "[]"
-    );
-    savedPrescriptions.push(newPrescription);
-    localStorage.setItem("prescriptions", JSON.stringify(savedPrescriptions));
+    fetch("http://localhost:8000/prescriptions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newPrescription),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Prescription saved successfully:", data);
+      })
+      .catch((error) => console.error("Error saving prescription:", error));
   };
 
   return (
@@ -83,7 +134,7 @@ const Prescription: React.FC = () => {
           </form>
         </div>
         <div className="prescription-action">
-          <h3>New/Refill Prescription -- Sample/Name (Rx Number: ---)</h3>
+          <h3>New/Refill Prescription</h3>
         </div>
       </div>
 
@@ -91,33 +142,42 @@ const Prescription: React.FC = () => {
         <div className="prescription-details">
           <form className="input-form">
             <label>
-              Patient:
+              Patient ID:
               <input
-                type="text"
-                name="patient"
-                placeholder="Ex. John Doe"
-                value={patient}
-                onChange={(e) => setPatient(e.target.value)}
+                type="number"
+                name="patientId"
+                placeholder="Ex. 1"
+                value={patientId === "" ? "" : patientId}
+                onChange={(e) => setPatientId(Number(e.target.value))}
               />
             </label>
             <label>
-              Prescriber:
+              Prescriber ID:
               <input
-                type="text"
-                name="prescriber"
-                placeholder="Ex. John Cena"
-                value={prescriber}
-                onChange={(e) => setPrescriber(e.target.value)}
+                type="number"
+                name="prescriberId"
+                placeholder="Ex. 1"
+                value={prescriberId === "" ? "" : prescriberId}
+                onChange={(e) => setPrescriberId(Number(e.target.value))}
               />
             </label>
             <label>
-              Item:
+              Item ID:
               <input
                 type="text"
                 name="item"
-                placeholder="Ex. Motrin"
+                placeholder="Ex. 1"
                 value={item}
                 onChange={(e) => setItem(e.target.value)}
+              />
+            </label>
+            <label>
+              Prescribed Date:
+              <input
+                type="date"
+                name="prescribedDate"
+                value={prescribedDate}
+                onChange={(e) => setPrescribedDate(e.target.value)}
               />
             </label>
           </form>
@@ -132,7 +192,7 @@ const Prescription: React.FC = () => {
                 type="text"
                 name="address"
                 placeholder="Ex. 296 The Moon"
-                onChange={(e) => setAddress(e.target.value)}
+                value={patientData ? `${patientData.street}, ${patientData.city}, ${patientData.state} ${patientData.zipcode}` : ""}
                 readOnly
               />
             </label>
@@ -142,7 +202,7 @@ const Prescription: React.FC = () => {
                 type="text"
                 name="phone"
                 placeholder="Ex. 435-1000-0000"
-                onChange={(e) => setPhone(e.target.value)}
+                value={patientData ? patientData.phone_number : ""}
                 readOnly
               />
             </label>
@@ -152,7 +212,7 @@ const Prescription: React.FC = () => {
                 type="text"
                 name="dob"
                 placeholder="Ex. 8/15/1864"
-                onChange={(e) => setDob(e.target.value)}
+                value={patientData ? patientData.date_of_birth : ""}
                 readOnly
               />
             </label>
@@ -162,124 +222,162 @@ const Prescription: React.FC = () => {
                 type="text"
                 name="allergies"
                 placeholder="Ex. Peanut"
-                onChange={(e) => setAllergies(e.target.value)}
+                value={patientData ? patientData.allergies : ""}
                 readOnly
               />
             </label>
           </form>
         </div>
 
+        <div className="prescriber-card">
+          <h3>Prescriber Information</h3>
+          <form className="input-forms">
+            <label>
+              Name:
+              <input
+                type="text"
+                name="prescriberName"
+                placeholder="Ex. Dr. John Doe"
+                value={prescriberData ? `${prescriberData.first_name} ${prescriberData.last_name}` : ""}
+                readOnly
+              />
+            </label>
+            <label>
+              Address:
+              <input
+                type="text"
+                name="prescriberAddress"
+                placeholder="Ex. 1234 Elm St"
+                value={prescriberData ? `${prescriberData.street}, ${prescriberData.city}, ${prescriberData.state} ${prescriberData.zipcode}` : ""}
+                readOnly
+              />
+            </label>
+            <label>
+              Phone:
+              <input
+                type="text"
+                name="prescriberPhone"
+                placeholder="Ex. 435-1000-0000"
+                value={prescriberData ? prescriberData.contact_number : ""}
+                readOnly
+              />
+            </label>
+            <label>
+              DEA:
+              <input
+                type="text"
+                name="prescriberDEA"
+                placeholder="Ex. AB1234567"
+                value={prescriberData ? prescriberData.dea : ""}
+                readOnly
+              />
+            </label>
+            <label>
+              NPI:
+              <input
+                type="text"
+                name="prescriberNPI"
+                placeholder="Ex. 1234567890"
+                value={prescriberData ? prescriberData.npi : ""}
+                readOnly
+              />
+            </label>
+          </form>
+        </div>
 
-      <div className="image-upload">
-        <form>
-          <label>
-            Prescription Image:
-            <input
-              type="file"
-              name="prescription-image"
-              accept="image/*"
-              ref={fileInputRef}
-              style={{ display: "none" }}
-              onChange={handleImageChange}
-            />
-            <button
-              type="button"
-              onClick={handleUploadClick}
-              className="upload-button"
-            >
-              Upload Image
-            </button>
-            <button
-            type="button"
-            onClick={handleRemoveImage}
-            className="remove-button"
-            >
-              Remove Image
-            </button>
-          </label>
-        </form>
-
-        {imageSrc && (
-          <div className="image-preview">
-            <img src={imageSrc} alt="Prescription" />
-          </div>
-        )}
-      </div>
-
-        
-      </div>
-
-      <div className="rx-values">
-        <div className="quant-written">
+        <div className="image-upload">
           <form>
+            <label>
+              Upload Image:
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleImageChange}
+                style={{ display: "none" }}
+              />
+              <button type="button" onClick={handleUploadClick}>
+                Upload Image
+              </button>
+              {imageSrc && (
+                <div className="image-preview">
+                  <img src={imageSrc} alt="Prescription" />
+                  <button type="button" onClick={handleRemoveImage}>
+                    Remove Image
+                  </button>
+                </div>
+              )}
+            </label>
+          </form>
+        </div>
+
+        <div className="prescription-details">
+          <form className="input-forms">
+            <label>
+              Directions:
+              <input
+                type="text"
+                name="directions"
+                placeholder="Ex. Take one pill daily"
+                value={directions}
+                onChange={(e) => setDirections(e.target.value)}
+              />
+            </label>
             <label>
               Quantity Written:
               <input
-                type="text"
-                name="written"
-                placeholder="Ex. 100"
+                type="number"
+                name="quantityWritten"
+                placeholder="Ex. 30"
+                value={quantityWritten}
                 onChange={(e) => setQuantityWritten(e.target.value)}
               />
             </label>
-          </form>
-        </div>
-        <div className="quant-dispensed">
-          <form>
             <label>
               Quantity Dispensed:
               <input
-                type="text"
-                name="dispensed"
-                placeholder="Ex. 100"
+                type="number"
+                name="quantityDispensed"
+                placeholder="Ex. 30"
+                value={quantityDispensed}
                 onChange={(e) => setQuantityDispensed(e.target.value)}
               />
             </label>
-          </form>
-        </div>
-        <div className="refills">
-          <form>
             <label>
-              Refills Dispensed:
+              Refills:
               <input
-                type="text"
+                type="number"
                 name="refills"
-                placeholder="Ex. 100"
-                onChange={(e) => setRefillsDespensed(e.target.value)}
+                placeholder="Ex. 5"
+                value={refills}
+                onChange={(e) => setRefills(e.target.value)}
               />
             </label>
-          </form>
-        </div>
-        <div className="remaining">
-          <form>
             <label>
               Quantity Remaining:
               <input
-                type="text"
-                name="remaining"
-                placeholder="Ex. 100"
+                type="number"
+                name="quantityRemaining"
+                placeholder="Ex. 0"
+                value={quantityRemaining}
                 onChange={(e) => setQuantityRemaining(e.target.value)}
+              />
+            </label>
+            <label>
+              Tech Initials:
+              <input
+                type="text"
+                name="techInitials"
+                placeholder="Ex. J.D."
+                value={techInitials}
+                onChange={(e) => setTechInitials(e.target.value)}
               />
             </label>
           </form>
         </div>
-      </div>
-      <div className="directions">
-        <form>
-          <label>
-            Directions:
-            <input
-              type="text"
-              name="directions"
-              placeholder="Ex. Take at night"
-              onChange={(e) => setDirections(e.target.value)}
-            />
-          </label>
-        </form>
-      </div>
-      <div className="save-button">
-        <button type="button" onClick={handleSubmit}>
-          Save Prescription
-        </button>
+
+        <div className="submit">
+          <button onClick={handleSubmit}>Submit Prescription</button>
+        </div>
       </div>
     </div>
   );

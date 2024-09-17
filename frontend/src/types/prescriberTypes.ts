@@ -1,8 +1,12 @@
 export interface PrescriberDetailInfo {
     first_name: string;
     last_name: string;
-    phone_number: string;
-    npi_number: string;
-    type: string;
+    prescriber_type: string;
+    street: string;
+    city: string;
+    state: string;
+    zipcode: string;
+    contact_number: string;
     dea: string;
+    npi: string
 }

@@ -1,7 +1,6 @@
 import "./PatientList.css";
 import { states } from "../../../data/states";
 import { PatientDetailInfo } from "../../types/patientTypes";
-
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import ReactSelect from "react-select";
@@ -85,15 +84,12 @@ const PatientList: React.FC = () => {
 
   const handleDeletePatient = async (patientId: number) => {
     try {
-      const response = await fetch(
-        `http://localhost:8000/patients/${patientId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:8000/patients/${patientId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (!response.ok) {
         throw new Error("Failed to delete patient");
       }
@@ -130,7 +126,7 @@ const PatientList: React.FC = () => {
       insurance_group_number: newPatient.insurance_group_number || null,
       insurance_rx_bin: newPatient.insurance_rx_bin || null,
       insurance_rx_pcn: newPatient.insurance_rx_pcn || null,
-      insurance_person_code: newPatient.insurance_person_code, // Ensure this is provided
+      insurance_person_code: newPatient.insurance_person_code,
     };
 
     try {
@@ -144,11 +140,7 @@ const PatientList: React.FC = () => {
 
       if (!response.ok) {
         const errorData = await response.json(); // Capture detailed error message
-        throw new Error(
-          `Network response was not ok: ${
-            errorData.detail || response.statusText
-          }`
-        );
+        throw new Error(`Network response was not ok: ${errorData.detail || response.statusText}`);
       }
 
       const patient = await response.json();
@@ -170,9 +162,7 @@ const PatientList: React.FC = () => {
   };
 
   const filteredPatients = patients.filter((patient) =>
-    `${patient.first_name} ${patient.last_name}`
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase())
+    `${patient.first_name} ${patient.last_name}`.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   if (loading) return <div>Loading...</div>;
@@ -214,30 +204,30 @@ const PatientList: React.FC = () => {
             <div className="patient-info">
               <h3>Patient Information</h3>
               <div className="form-group">
-              <label>
-                Last Name:
-                <input
-                  type="text"
-                  name="last_name"
-                  placeholder="Ex. John Doe"
-                  required
-                  value={newPatient.last_name}
-                  onChange={handleInputChange}
-                />
-              </label>
+                <label>
+                  Last Name:
+                  <input
+                    type="text"
+                    name="last_name"
+                    placeholder="Ex. John Doe"
+                    required
+                    value={newPatient.last_name}
+                    onChange={handleInputChange}
+                  />
+                </label>
               </div>
               <div className="form-group">
-              <label>
-                First Name:
-                <input
-                  type="text"
-                  name="first_name"
-                  placeholder="Ex. John Doe"
-                  required
-                  value={newPatient.first_name}
-                  onChange={handleInputChange}
-                />
-              </label>
+                <label>
+                  First Name:
+                  <input
+                    type="text"
+                    name="first_name"
+                    placeholder="Ex. John Doe"
+                    required
+                    value={newPatient.first_name}
+                    onChange={handleInputChange}
+                  />
+                </label>
               </div>
               <div className="form-group">
                 <label>
@@ -284,133 +274,133 @@ const PatientList: React.FC = () => {
             <div className="address">
               <h3>Address</h3>
               <div className="form-group">
-              <label>
-                State:
-                <ReactSelect
-                  options={states}
-                  isClearable
-                  placeholder="Select a state"
-                  onChange={handleStateChange}
-                  value={states.find(
-                    (option) => option.value === newPatient.state
-                  )}
-                />
-              </label>
+                <label>
+                  State:
+                  <ReactSelect
+                    options={states}
+                    isClearable
+                    placeholder="Select a state"
+                    onChange={handleStateChange}
+                    value={states.find(
+                      (option) => option.value === newPatient.state
+                    )}
+                  />
+                </label>
               </div>
               <div className="form-group">
-              <label>
-                City:
-                <input
-                  type="text"
-                  name="city"
-                  placeholder="Enter city"
-                  required
-                  value={newPatient.city}
-                  onChange={handleInputChange}
-                />
-              </label>
+                <label>
+                  City:
+                  <input
+                    type="text"
+                    name="city"
+                    placeholder="Enter city"
+                    required
+                    value={newPatient.city}
+                    onChange={handleInputChange}
+                  />
+                </label>
               </div>
               <div className="form-group">
-              <label>
-                Zip:
-                <input
-                  type="text"
-                  name="zipcode"
-                  placeholder="Enter zip code"
-                  required
-                  value={newPatient.zipcode}
-                  onChange={handleInputChange}
-                />
-              </label>
+                <label>
+                  Zip:
+                  <input
+                    type="text"
+                    name="zipcode"
+                    placeholder="Enter zip code"
+                    required
+                    value={newPatient.zipcode}
+                    onChange={handleInputChange}
+                  />
+                </label>
               </div>
               <div className="form-group">
-              <label>
-                Street:
-                <input
-                  type="text"
-                  name="street"
-                  placeholder="Enter street address"
-                  required
-                  value={newPatient.street}
-                  onChange={handleInputChange}
-                />
-              </label>
+                <label>
+                  Street:
+                  <input
+                    type="text"
+                    name="street"
+                    placeholder="Enter street address"
+                    required
+                    value={newPatient.street}
+                    onChange={handleInputChange}
+                  />
+                </label>
               </div>
             </div>
 
             <div className="insurance">
               <h3>Insurance Information</h3>
               <div className="form-group">
-              <label>
-                Insurance Name:
-                <input
-                  type="text"
-                  name="insurance_name"
-                  placeholder="Enter insurance name"
-                  value={newPatient.insurance_name}
-                  onChange={handleInputChange}
-                />
-              </label>
+                <label>
+                  Insurance Name:
+                  <input
+                    type="text"
+                    name="insurance_name"
+                    placeholder="Enter insurance name"
+                    value={newPatient.insurance_name}
+                    onChange={handleInputChange}
+                  />
+                </label>
               </div>
               <div className="form-group">
-              <label>
-                Member ID:
-                <input
-                  type="text"
-                  name="insurance_member_id"
-                  placeholder="Enter insurance member ID"
-                  value={newPatient.insurance_member_id}
-                  onChange={handleInputChange}
-                />
-              </label>
+                <label>
+                  Member ID:
+                  <input
+                    type="text"
+                    name="insurance_member_id"
+                    placeholder="Enter insurance member ID"
+                    value={newPatient.insurance_member_id}
+                    onChange={handleInputChange}
+                  />
+                </label>
               </div>
               <div className="form-group">
-              <label>
-                Group Number:
-                <input
-                  type="text"
-                  name="insurance_group_number"
-                  placeholder="Enter group number"
-                  value={newPatient.insurance_group_number}
-                  onChange={handleInputChange}
-                />
-              </label>
+                <label>
+                  Group Number:
+                  <input
+                    type="text"
+                    name="insurance_group_number"
+                    placeholder="Enter group number"
+                    value={newPatient.insurance_group_number}
+                    onChange={handleInputChange}
+                  />
+                </label>
               </div>
               <div className="form-group">
-              <label>
-                RX Bin:
-                <input
-                  type="text"
-                  name="insurance_rx_bin"
-                  placeholder="Enter RX bin number"
-                  value={newPatient.insurance_rx_bin}
-                  onChange={handleInputChange}
-                />
-              </label>
+                <label>
+                  RX Bin:
+                  <input
+                    type="text"
+                    name="insurance_rx_bin"
+                    placeholder="Enter RX bin number"
+                    value={newPatient.insurance_rx_bin}
+                    onChange={handleInputChange}
+                  />
+                </label>
               </div>
               <div className="form-group">
-              <label>
-                RX PCN:
-                <input
-                  type="text"
-                  name="insurance_rx_pcn"
-                  placeholder="Enter RX PCN number"
-                  value={newPatient.insurance_rx_pcn}
-                  onChange={handleInputChange}
-                />
-              </label>
+                <label>
+                  RX PCN:
+                  <input
+                    type="text"
+                    name="insurance_rx_pcn"
+                    placeholder="Enter RX PCN number"
+                    value={newPatient.insurance_rx_pcn}
+                    onChange={handleInputChange}
+                  />
+                </label>
               </div>
               <div className="form-group">
-              <label>
-                Person Code:
-                <input
-                  type="text"
-                  name="insurance_person_code"
-                  placeholder="Enter person code"
-                  value={newPatient.insurance_person_code}
-                  onChange={handleInputChange}
-                />
-              </label>
+                <label>
+                  Person Code:
+                  <input
+                    type="text"
+                    name="insurance_person_code"
+                    placeholder="Enter person code"
+                    value={newPatient.insurance_person_code}
+                    onChange={handleInputChange}
+                  />
+                </label>
               </div>
             </div>
             <Button variant="primary" type="submit">
@@ -425,7 +415,7 @@ const PatientList: React.FC = () => {
           <Modal.Title>Confirm Deletion</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Are you sure you want to delete this patient? 
+          Are you sure you want to delete this patient?
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setConfirmDelete(false)}>
@@ -444,16 +434,17 @@ const PatientList: React.FC = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+
       <h1>Current Patients</h1>
       <div className="patients-list">
         {filteredPatients.length > 0 ? (
           filteredPatients.map((patient) => (
             <div key={patient.id} className="patient-item">
               <span className="patient-item-span">
-                {patient.first_name} {patient.last_name} 
+                {patient.first_name} {patient.last_name}
               </span>
-              <Link to={`/patients/${patient.id}`} className="patient-profile-link">
-              View Profile 
+              <Link to={`/patient/${patient.id}`} className="patient-profile-link">
+                View Profile
               </Link>
               <Button className="delete-button"
                 variant="danger"

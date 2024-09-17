@@ -1,0 +1,131 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+  }
+  
+  .medication-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 10em auto;
+    padding: 30px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: #333;
+  }
+  
+  .medication-list-container h1 {
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #007bff;
+    font-size: 2em;
+    text-align: center;
+  }
+  
+  .medication-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e0e0e0;
+    gap: 20px;
+  }
+  
+  .medication-search-bar {
+    margin-right: 10px;
+  }
+  
+  .medication-search-bar label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 4px;
+    gap: 1em;
+  }
+  
+  .medication-search-bar input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s;
+  }
+  
+  .medication-search-bar input[type="text"]:focus {
+    border-color: #007bff;
+  }
+  
+  .add-medication-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    flex-shrink: 0;
+  }
+  
+  .add-medication-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  .medication-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  
+  .medication-card {
+    padding: 15px;
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #ffffff;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s;
+  }
+  
+  .medication-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .medication-card p {
+    font-size: 1rem;
+    color: #555;
+    margin: 0;
+  }
+  
+  .error-message {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .delete-button {
+    margin-left: 10px;
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+  }
+  

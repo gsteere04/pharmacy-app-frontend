@@ -1,22 +1,26 @@
 import "./PrescriberList.css";
 import { PrescriberDetailInfo } from "../../types/prescriberTypes";
+import { states } from "../../../data/states";
+import { prescriber_types } from "../../../data/prescriber_types";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import ReactSelect from "react-select";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import fetchPatients from "../../services/patientService"; // Import the fetchPatients function
+import fetchPrescribers from "../../services/prescriberService";
 
 export type PrescriberBasicInfo = {
   id: number;
   first_name: string;
   last_name: string;
-  date_of_birth: string;
 };
 
 const PrescriberList: React.FC = () => {
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const [deletePrescriberId, setDeletePrescriberId] = useState<number | null>(null);
+  const [deletePrescriberId, setDeletePrescriberId] = useState<number | null>(
+    null
+  );
   const [show, setShow] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [prescribers, setPrescribers] = useState<PrescriberBasicInfo[]>([]);
@@ -26,16 +30,20 @@ const PrescriberList: React.FC = () => {
   const [newPrescriber, setNewPrescriber] = useState<PrescriberDetailInfo>({
     first_name: "",
     last_name: "",
-    phone_number: "",
+    prescriber_type: "",
+    street: "",
+    city: "",
+    state: "",
+    zipcode: "",
+    contact_number: "",
     dea: "",
-    type: "",
-    npi_number: ""
+    npi: "",
   });
 
   useEffect(() => {
     const loadPrescribers = async () => {
       try {
-        const data: PrescriberBasicInfo[] = await fetchPatients();
+        const data: PrescriberBasicInfo[] = await fetchPrescribers();
         setPrescribers(data);
       } catch (error) {
         setError("Failed to load prescribers");
@@ -47,7 +55,23 @@ const PrescriberList: React.FC = () => {
     loadPrescribers();
   }, []);
 
+  const handleStateChange = (
+    selectedOption: { value: string; label: string } | null
+  ) => {
+    setNewPrescriber((prevState) => ({
+      ...prevState,
+      state: selectedOption ? selectedOption.value : "",
+    }));
+  };
 
+  const handleTypeChange = (
+    selectedOption: { value: string; label: string } | null
+  ) => {
+    setNewPrescriber((prevState) => ({
+      ...prevState,
+      prescriber_type: selectedOption ? selectedOption.value : "",
+    }));
+  };
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const term = e.target.value;
     setSearchTerm(term);
@@ -90,11 +114,17 @@ const PrescriberList: React.FC = () => {
   const handleSaveChanges = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-
     const prescriberData = {
       first_name: newPrescriber.first_name,
       last_name: newPrescriber.last_name,
-      phone_number: newPrescriber.phone_number,
+      contact_number: newPrescriber.contact_number,
+      prescriber_type: newPrescriber.prescriber_type,
+      street: newPrescriber.street,
+      city: newPrescriber.city,
+      state: newPrescriber.state,
+      zipcode: newPrescriber.zipcode,
+      dea: newPrescriber.dea,
+      npi: newPrescriber.npi,
     };
 
     try {
@@ -204,12 +234,107 @@ const PrescriberList: React.FC = () => {
               </div>
               <div className="form-group">
                 <label>
-                  Phone Number:
+                  Contact Number:
                   <input
                     type="text"
-                    name="phone_number"
-                    placeholder="Enter phone number here"
-                    value={newPrescriber.phone_number}
+                    name="contact_number"
+                    placeholder="Enter contact number here"
+                    value={newPrescriber.contact_number}
+                    onChange={handleInputChange}
+                  />
+                </label>
+              </div>
+              <div className="form-group">
+                <label>
+                  NPI Number:
+                  <input
+                    type="text"
+                    name="npi"
+                    placeholder="Enter NPI number here"
+                    value={newPrescriber.npi}
+                    onChange={handleInputChange}
+                  />
+                </label>
+              </div>
+              <div className="form-group">
+                <label>
+                  DEA:
+                  <input
+                    type="text"
+                    name="dea"
+                    placeholder="Enter DEA here"
+                    value={newPrescriber.dea}
+                    onChange={handleInputChange}
+                  />
+                </label>
+              </div>
+              <div className="form-group">
+                <label>
+                  Type:
+                  <ReactSelect
+                    options={prescriber_types}
+                    isClearable
+                    placeholder="Select a type"
+                    onChange={handleTypeChange}
+                    value={prescriber_types.find(
+                      (option) => option.value === newPrescriber.prescriber_type
+                    )}
+                  />
+                </label>
+              </div>
+            </div>
+
+            <div className="address">
+              <h3>Address</h3>
+              <div className="form-group">
+                <label>
+                  State:
+                  <ReactSelect
+                    options={states}
+                    isClearable
+                    placeholder="Select a state"
+                    onChange={handleStateChange}
+                    value={states.find(
+                      (option) => option.value === newPrescriber.state
+                    )}
+                  />
+                </label>
+              </div>
+              <div className="form-group">
+                <label>
+                  City:
+                  <input
+                    type="text"
+                    name="city"
+                    placeholder="Enter city"
+                    required
+                    value={newPrescriber.city}
+                    onChange={handleInputChange}
+                  />
+                </label>
+              </div>
+              <div className="form-group">
+                <label>
+                  Zip:
+                  <input
+                    type="text"
+                    name="zipcode"
+                    placeholder="Enter zip code"
+                    required
+                    value={newPrescriber.zipcode}
+                    onChange={handleInputChange}
+                  />
+                </label>
+              </div>
+              <div className="form-group">
+                <label>
+                  Street:
+                  <input
+                    type="text"
+                    name="street"
+                    placeholder="Enter street address"
+                    required
+                    value={newPrescriber.street}
                     onChange={handleInputChange}
                   />
                 </label>
@@ -228,12 +353,16 @@ const PrescriberList: React.FC = () => {
           filteredPrescribers.map((prescriber) => (
             <div key={prescriber.id} className="prescriber-item">
               <span className="prescriber-item-span">
-                {prescriber.first_name} {prescriber.last_name} 
+                {prescriber.first_name} {prescriber.last_name}
               </span>
-              <Link to={`/prescribers/${prescriber.id}`} className="prescriber-profile-link">
-              View Profile
+              <Link
+                to={`/prescribers/${prescriber.id}`}
+                className="prescriber-profile-link"
+              >
+                View Profile
               </Link>
-              <Button className="delete-button"
+              <Button
+                className="delete-button"
                 variant="danger"
                 onClick={() => {
                   setDeletePrescriberId(prescriber.id);
@@ -253,7 +382,9 @@ const PrescriberList: React.FC = () => {
         <Modal.Header closeButton>
           <Modal.Title>Confirm Delete</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to delete this prescriber?</Modal.Body>
+        <Modal.Body>
+          Are you sure you want to delete this prescriber?
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setConfirmDelete(false)}>
             Cancel
